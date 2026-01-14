@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vibe Coding Master: Strategic Implementation Framework
 
 ## Executive Summary
@@ -21,3 +22,6 @@ Este framework opera bajo un régimen de **Seguridad Estática** y **Validación
 
 ---
 *Documento de carácter estratégico para la dirección técnica y ejecutiva.*
+=======
+# vibe-coding-master
+>>>>>>> 14aaf4aa4a5aeb7a67e173f2c7f9df84bed8baab
