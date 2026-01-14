@@ -1,0 +1,20 @@
+# REGLAMENTO CONSTITUCIONAL DEL REPOSITORIO (v1.0.0)
+
+## 1. PRINCIPIOS ARQUITECTÓNICOS FUNDAMENTALES
+- **Clean Architecture Obligatoria**: Separación estricta de responsabilidades entre capas.
+- **SOLID Compliance**: Cada clase y función debe adherirse a los principios de responsabilidad única, abierto/cerrado, sustitución de Liskov, segregación de interfaces e inversión de dependencias.
+- **D.R.Y. (Don't Repeat Yourself)**: Evitar la redundancia para minimizar los puntos de falla.
+
+## 2. PROTOCOLO DE INTERACCIÓN DE IA
+- **Pausar y Preguntar**: Ante cualquier ambigüedad en la definición de requerimientos de negocio o conflictos arquitectónicos, el agente DEBE detenerse y solicitar aclaración.
+- **Contexto Senior únicamente**: Todas las sugerencias deben reflejar un nivel de Staff Engineer / Architect. No se acepta código "Junior" o patrones obsoletos.
+
+## 3. SEGURIDAD Y CUMPLIMIENTO (COMPLIANCE)
+- **Validación Estática Proactiva**: Cada sugerencia de código debe incluir implícitamente una revisión de vulnerabilidades (OWASP Top 10).
+- **Zero Secrets Policy**: Prohibido hardcodear credenciales, tokens o IPs privadas.
+- **Audit Logging**: Los cambios críticos deben documentarse con la justificación arquitectónica correspondiente.
+
+## 4. ESTÁNDARES DE DESARROLLO
+- **Tipado Fuerte**: Preferencia por interfaces y tipos explícitos para eliminar la ambigüedad en tiempo de ejecución.
+- **Testing First**: La lógica de negocio (`/logic`) debe ser testeable al 100% sin dependencias externas.
+- **Documentación Viva**: El código debe ser auto-explicativo, complementado con JSDoc/TSDoc detallado donde la complejidad lo requiera.
