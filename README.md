@@ -1,5 +1,10 @@
 # Vibe Coding Master: Protocolo de Gobernanza para el Desarrollo Agéntico
 
+### Abstract
+**Vibe Coding Master** is a high-level operational framework designed to streamline the transition from manual coding to agentic orchestration. This repository serves as a **technical governance blueprint**, optimizing context injection for Large Language Models (LLMs) and AI agents. By enforcing **Clean Architecture** and **Dependency Inversion** principles, it ensures that AI-generated code remains scalable, secure, and aligned with enterprise-grade standards, effectively shifting the developer's role from syntax execution to strategic architectural oversight.
+
+---
+
 ### Resumen Ejecutivo
 Este repositorio constituye un **Framework de Gobernanza Técnica** diseñado para la transición del desarrollo manual a la orquestación asistida por agentes. Su propósito es estandarizar la inyección de contexto en modelos de lenguaje (LLMs), asegurando que la generación de código sea el resultado de un diseño arquitectónico predefinido y no de una inferencia probabilística aislada.
 
@@ -34,5 +39,7 @@ Este framework permite transformar la capacidad de ejecución individual en una 
 * **Reducción del Time-to-Market**: Colapso de los ciclos de prototipado y despliegue.
 * **Soberanía de Datos**: Arquitectura optimizada para la ejecución en nubes privadas y entornos locales.
 * **Integridad Técnica**: Mitigación proactiva de la deuda técnica y las alucinaciones de modelos mediante restricciones de diseño estrictas.
+
+---
 **Director Técnico: Gustavo Reyes**
 *Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
