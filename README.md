@@ -36,8 +36,3 @@ Este framework permite transformar la capacidad de ejecución individual en una 
 ---
 **Director Técnico: Gustavo Reyes**
 *Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
-* **Integridad Técnica**: Mitigación proactiva de la deuda técnica y las alucinaciones de modelos mediante restricciones de diseño estrictas.
-
----
-**Director Técnico: Gustavo Reyes**
-*Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
