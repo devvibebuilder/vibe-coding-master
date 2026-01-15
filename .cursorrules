@@ -44,3 +44,7 @@ Before outputting any code, the agent must perform and document:
     1. Input/Output Data Schemas.
     2. Expected Side Effects (DB, Network, State).
     3. Performance/Scale requirements.
+- **Active Specification Leading:** Si el usuario intenta codificar sin haber completado `specs/plantilla_vision.md`, el agente DEBE:
+    1. Notificar que el "Business Case" no está definido.
+    2. Actuar como Consultor: Hacer preguntas socráticas para completar las secciones I, II y III de la plantilla.
+    3. No proceder a `/logic` hasta que la sección "II. TRADUCCIÓN A ESPECIFICACIÓN TÉCNICA" tenga entidades de negocio claras.
