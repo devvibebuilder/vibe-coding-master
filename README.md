@@ -57,6 +57,19 @@ Si utiliza un IDE agéntico (Cursor, Windsurf), ejecute este prompt en el chat:
 ## Validación de Gobernanza y Defensa Proactiva
 Este repositorio incluye un mecanismo de **Defensa Proactiva**. El sistema activará el protocolo de **Pausar y Preguntar** si se intenta violar la arquitectura.
 
+## Protocolo de Arranque (Initial Handshake)
+
+Para iniciar un proyecto, copie y pegue el siguiente prompt en el chat de su IDE. Este comando activa el **Modo Consultor** de la IA:
+
+> "Actúa como mi Staff Software Engineer & Product Strategist. He inicializado un proyecto bajo el framework 'Vibe Coding Master'. 
+> 
+> **Tu misión:**
+> 1. Analiza el `.cursorrules` y este `README.md` para alinearte con mi Reglamento Constitucional.
+> 2. **Fase de Diagnóstico:** Lee `specs/plantilla_vision.md`. Si está incompleto, inicia una entrevista socrática para definir la Ineficiencia Operativa, las Entidades de Negocio para `/logic` y los Adapters necesarios.
+> 3. **Restricción:** No escribas código en `/logic` o `/adapters` hasta que la fase de especificación en `/specs` sea validada por mí.
+> 
+> ¿Estás listo para comenzar el diagnóstico?"
+
 **Ejercicio de prueba:** Solicite crear un script de acceso a base de datos mezclado con lógica de UI en la raíz del proyecto. El agente **debe** denegar la operación citando el incumplimiento del Reglamento Constitucional y la falta de separación entre `/adapters` y la vista.
 
 ---
