@@ -34,5 +34,13 @@ Este framework permite transformar la capacidad de ejecución individual en una 
 * **Integridad Técnica**: Mitigación proactiva de la deuda técnica mediante restricciones de diseño estrictas.
 
 ---
+
+## Instalación Automatizada vía IA
+
+Si está utilizando un IDE agéntico (como Cursor o Windsurf), puede copiar y pegar el siguiente prompt en el chat para que la IA gestione la preparación del entorno por usted:
+
+> "Actúa como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios para confirmar la descarga. Una vez hecho, analiza el archivo .cursorrules para alinearte con mi Reglamento Constitucional."
+
+---
 **Director Técnico: Gustavo Reyes**
 *Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
