@@ -17,37 +17,47 @@ Este repositorio debe ser utilizado como el **molde operativo** (blueprint) para
 4. **Gobernanza**: El archivo `.cursorrules` actuará como el fiscal técnico de cada línea de código sugerida.
 
 ### Arquitectura de Directorios
-La estructura física del repositorio ha sido diseñada para garantizar la integridad sistémica y la autonomía de los agentes bajo principios de **Clean Architecture**:
+La estructura física del repositorio garantiza la integridad sistémica bajo principios de **Clean Architecture**:
 
-* **`.cursorrules`**: Capa de gobernanza normativa. Contiene el Reglamento Constitucional que rige el comportamiento y los límites de la IA.
-* **`/logic`**: El núcleo del sistema. Contiene la lógica de negocio pura y las reglas de dominio, aislada de dependencias externas.
-* **`/interfaces`**: Define los contratos, esquemas y tipos globales que aseguran la comunicación coherente entre módulos.
-* **`/adapters`**: Capa de implementación técnica. Gestiona la conexión con servicios externos, bases de datos y APIs bajo el principio de Inversión de Dependencias.
-* **`/audit`**: Espacio dedicado a la persistencia de contexto, trazabilidad arquitectónica y registros de control de calidad.
-* **`/specs`**: Fuente de verdad técnica. Contiene los requerimientos y definiciones que sirven de base para la inferencia del agente.
-* **`/tests`**: Infraestructura de validación para garantizar que la lógica de negocio sea testeable al 100% y libre de efectos secundarios.
+* **`.cursorrules`**: Capa de gobernanza normativa. Reglamento Constitucional que rige el comportamiento y límites de la IA.
+* **`/logic`**: El núcleo (Core). Contiene la lógica de negocio pura y reglas de dominio, aislada de dependencias externas.
+* **`/interfaces`**: Contratos y esquemas. Define los DTOs y tipos globales que aseguran la comunicación entre módulos.
+* **`/adapters`**: Capa de implementación. Gestiona la conexión con servicios externos (DB, APIs) bajo Inversión de Dependencias.
+* **`/audit`**: Trazabilidad y control. Registros de calidad, logs de seguridad y persistencia de contexto.
+* **`/specs`**: Fuente de verdad. Requerimientos técnicos y funcionales que sirven de base para la inferencia.
+* **`/tests`**: Infraestructura de validación. Garantiza que la lógica sea testeable al 100% y libre de efectos secundarios.
+
+### Protocolo de Inferencia Dirigida (PID)
+A diferencia del desarrollo tradicional, este framework utiliza un **Protocolo de Inferencia Dirigida**. El agente de IA tiene prohibido "crear" sin antes "consultar":
+1. **Anclaje de Verdad**: El agente lee obligatoriamente `/specs` antes de proponer cualquier línea de código.
+2. **Contrato de Interfaz**: Ninguna función en `/adapters` se implementa sin una definición previa y validada en `/interfaces`.
+3. **Aislamiento de Dominio**: El código en `/logic` es matemáticamente puro; es agnóstico a la infraestructura (DB, Frameworks, UI).
+
+### Ciclo de Vida del Desarrollo Agéntico (ADLC)
+Para maximizar la eficiencia de la IA, siga este flujo de trabajo:
+1. **DRAFT** (`/specs`): Defina el requerimiento funcional.
+2. **CONTRACT** (`/interfaces`): Establezca los tipos y contratos de entrada/salida.
+3. **CORE** (`/logic`): Desarrolle la lógica de negocio pura.
+4. **IMPLEMENT** (`/adapters`): Conecte la lógica con el mundo exterior (infraestructura).
+5. **VERIFY** (`/tests` & `/audit`): Valide la integridad y registre el resultado.
 
 ### Valor Estratégico y ROI
-Este framework permite transformar la capacidad de ejecución individual en una potencia operativa de grado empresarial. Al estandarizar el flujo de trabajo agéntico, se logra:
-* **Reducción del Time-to-Market**: Colapso de los ciclos de prototipado y despliegue.
-* **Soberanía de Datos**: Arquitectura optimizada para la ejecución en nubes privadas y entornos locales.
-* **Integridad Técnica**: Mitigación proactiva de la deuda técnica mediante restricciones de diseño estrictas.
+* **Reducción del Time-to-Market**: Colapso de los ciclos de prototipado mediante orquestación guiada.
+* **Soberanía Técnica**: Arquitectura modular que facilita la migración de proveedores o stacks.
+* **Mitigación de Deuda**: Restricciones de diseño estrictas que impiden la degradación del código con el tiempo.
 
 ---
 
 ## Instalación Automatizada vía IA
 
-Si está utilizando un IDE agéntico (como Cursor o Windsurf), puede copiar y pegar el siguiente prompt en el chat para que la IA gestione la preparación del entorno por usted:
+Si utiliza un IDE agéntico (Cursor, Windsurf), ejecute este prompt en el chat:
 
-> "Actúa como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios para confirmar la descarga. Una vez hecho, analiza el archivo .cursorrules para alinearte con mi Reglamento Constitucional."
+> "Actúa como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios. Una vez hecho, analiza el archivo .cursorrules para alinearte con mi Reglamento Constitucional y el README.md para entender el flujo de trabajo PID."
 
-## Validación de Gobernanza
-Para verificar que el agente está operando bajo el Reglamento Constitucional, intente solicitar una función que mezcle lógica de negocio con acceso a datos en un solo archivo. El agente debería detener la ejecución y sugerir una refactorización basada en la estructura de `/logic` y `/adapters`.
+## Validación de Gobernanza y Defensa Proactiva
+Este repositorio incluye un mecanismo de **Defensa Proactiva**. El sistema activará el protocolo de **Pausar y Preguntar** si se intenta violar la arquitectura.
 
-## Control de Calidad y Resistencia Arquitectónica
-Este repositorio incluye un mecanismo de **Defensa Proactiva**. Si intenta forzar al agente a escribir código que viole los principios de *Clean Architecture* o seguridad, el sistema activará el protocolo de **Pausar y Preguntar**.
-
-**Ejercicio de prueba:** Solicite la creación de un script de acceso a base de datos mezclado con lógica de UI en la raíz del proyecto. El agente debería denegar la operación citando el Reglamento Constitucional.
+**Ejercicio de prueba:** Solicite crear un script de acceso a base de datos mezclado con lógica de UI en la raíz del proyecto. El agente **debe** denegar la operación citando el incumplimiento del Reglamento Constitucional y la falta de separación entre `/adapters` y la vista.
 
 ---
 **Director Técnico: Gustavo Reyes**
