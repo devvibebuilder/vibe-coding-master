@@ -41,6 +41,14 @@ Si está utilizando un IDE agéntico (como Cursor o Windsurf), puede copiar y pe
 
 > "Actúa como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios para confirmar la descarga. Una vez hecho, analiza el archivo .cursorrules para alinearte con mi Reglamento Constitucional."
 
+## Validación de Gobernanza
+Para verificar que el agente está operando bajo el Reglamento Constitucional, intente solicitar una función que mezcle lógica de negocio con acceso a datos en un solo archivo. El agente debería detener la ejecución y sugerir una refactorización basada en la estructura de `/logic` y `/adapters`.
+
+## Control de Calidad y Resistencia Arquitectónica
+Este repositorio incluye un mecanismo de **Defensa Proactiva**. Si intenta forzar al agente a escribir código que viole los principios de *Clean Architecture* o seguridad, el sistema activará el protocolo de **Pausar y Preguntar**.
+
+**Ejercicio de prueba:** Solicite la creación de un script de acceso a base de datos mezclado con lógica de UI en la raíz del proyecto. El agente debería denegar la operación citando el Reglamento Constitucional.
+
 ---
 **Director Técnico: Gustavo Reyes**
 *Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
