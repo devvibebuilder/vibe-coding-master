@@ -1,49 +1,46 @@
-# .cursorrules - Senior Staff Engineer & System Architect Edition (v3.0.0)
+# .cursorrules - Master Repository Constitution (v3.2.0)
 
-## 1. CORE ARCHITECTURAL PRINCIPLES
-- **Architecture Model:** Strict Clean Architecture / Hexagonal. Separation of concerns between Domain, Use Cases, and Infrastructure.
-- **Dependency Direction:** Dependencies must only point inwards. Infrastructure must depend on Domain, never the reverse.
-- **SOLID Compliance:** Every code block must adhere to Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.
-- **Modularity:** High cohesion and low coupling. Prefer composition over inheritance.
+## 1. DIRECTORY GOVERNANCE & PROJECT DNA
+- **Strict Layer Isolation:**
+    - `/logic`: Core business logic and domain entities only. Pure functions, no external dependencies.
+    - `/interfaces`: API definitions, DTOs, and abstract contracts. The "What", not the "How".
+    - `/adapters`: Implementation details (DB, External APIs, Frameworks). Implementation of interfaces.
+    - `/specs`: Technical specifications, documentation, and architectural decisions (ADRs).
+    - `/tests`: Unit, integration, and E2E testing suites mirroring the source structure.
+    - `/audit`: Security logs, performance reports, and compliance documentation.
 
 ## 2. SYSTEMATIC EXECUTION PROTOCOL (INTERNAL CHAIN OF THOUGHT)
 Before outputting any code, the agent must perform and document:
-1. **Context Mapping:** Analyze the workspace. Identify affected files, shared types, and downstream impacts.
-2. **Root Cause Analysis (RCA):** If debugging, identify why the error exists before proposing a fix.
-3. **Trade-off Analysis:** Explicitly state why a specific pattern was chosen over alternatives (e.g., Performance vs. Readability).
-4. **Adversarial Review:** Search for race conditions, edge cases (null/undefined/empty), and O(n^2) complexity.
+1. **Context Mapping:** Analyze `/interfaces` and `/logic` before proposing changes in `/adapters`.
+2. **Root Cause Analysis (RCA):** For debugging, trace the error across layers before fixing.
+3. **Trade-off Analysis:** Explicitly state architectural decisions (e.g., "Placed in Adapters to keep Logic pure").
+4. **Adversarial Review:** Identify potential race conditions, edge cases, and O(n^2) complexity.
 
 ## 3. TECHNICAL CONSTRAINTS & TYPE PROHIBITIONS
-- **Type Integrity:** Absolute prohibition of `any`, `as unknown`, or `!`. Use Discriminated Unions and Type Guards.
-- **Boundary Validation:** All external data (API, User Input, Env) must be validated via Zod/TypeBox at the edge.
-- **Error Handling:** Use the Result/Either pattern for domain errors. Avoid try/catch for flow control.
-- **Function Metrics:** Maximum 20 lines per function. Maximum 3 arguments per function. Use objects for complex parameters.
-- **Naming:** Booleans must have prefixes (is, has, should, can). Functions must start with a verb.
+- **Type Integrity:** Zero tolerance for `any`, `as unknown`, or `!`. Use Discriminated Unions and Type Guards.
+- **Boundary Validation:** Use Zod/TypeBox at the `/interfaces` level to validate all incoming data.
+- **Error Handling:** Use Result/Either patterns for domain errors. Avoid try/catch for flow control.
+- **Complexity Limits:** Functions < 20 lines. Maximum 3 arguments per function.
+- **Naming Convention:** Booleans must use prefixes (is, has, should, can). Functions must start with a verb.
 
-## 4. DESIGN SYSTEM & UI GOVERNANCE
-- **Logic Isolation:** 100% separation between business logic (Hooks/Services) and UI (Pure Components).
-- **Aesthetic Consistency:** Adhere to established design tokens (Tailwind/Theme). No hardcoded hex codes or spacing.
-- **State Ownership:** Local state by default. Global state must be serializable and managed via immutable store patterns.
+## 4. SECURITY & OBSERVABILITY (GOD MODE)
+- **Security First:** Sanitize all inputs at the Adapter level. Prevent XSS, SQLi, and CSRF.
+- **Zero Secrets:** Hardcoded credentials trigger immediate failure. Use encrypted env vars.
+- **Audit Logging:** Critical operations must be logged and documented in the `/audit` directory.
+- **Performance:** Ensure O(n) or better. Implement debouncing/throttling for high-frequency operations.
 
-## 5. INFRASTRUCTURE & SECURITY (GOD MODE)
-- **Security First:** Sanitize all inputs. Prevent XSS, SQLi, and CSRF at the architectural level.
-- **Zero Secrets:** Hardcoded credentials trigger an immediate failure. Use encrypted environment variables.
-- **Observability:** Include structured logging and telemetry hooks in all critical service paths.
-- **Performance:** O(n) or better. Implement debouncing, throttling, and virtualization for high-frequency operations.
+## 5. WORKSPACE & CONTEXT MANAGEMENT
+- **Token Efficiency:** Be concise. Do not rewrite existing files unless a refactor is requested.
+- **Modularization:** Files > 250 lines must be decomposed into sub-modules within their layer.
+- **Context Pinning:** Always prioritize types in `/interfaces` over local definitions.
 
-## 6. WORKSPACE & CONTEXT MANAGEMENT
-- **Token Efficiency:** Keep responses concise. Do not rewrite existing code unless refactoring is requested.
-- **File Management:** Files exceeding 250 lines must be split into sub-modules.
-- **Context Pinning:** Always respect the types defined in `@types/` or `src/domain/`. Do not hallucinate new interfaces if existing ones apply.
+## 6. DOCUMENTATION & VERSION CONTROL
+- **Standards:** TSDoc/JSDoc required for all exported members in `/logic` and `/interfaces`.
+- **Git Flow:** All suggestions must follow Conventional Commits (feat, fix, refactor, chore, docs).
+- **Tech Debt:** Mark temporary solutions with `// TODO: TECH DEBT [ID]` and document the refactor path.
 
-## 7. DOCUMENTATION & VERSION CONTROL
-- **TSDoc/JSDoc:** Mandatory for all exported members. Must include `@param`, `@returns`, and `@throws`.
-- **Git Flow:** All code suggestions must include a summary in Conventional Commits format (feat, fix, refactor, chore).
-- **Tech Debt Tracking:** Use `// TODO: TECH DEBT [ID]` for temporary hacks, including a brief explanation of the "ideal" fix.
-
-## 8. AMBIGUITY & SYSTÈME-D
-- If a request is vague, the agent MUST stop and ask for:
+## 7. AMBIGUITY RESOLUTION PROTOCOL
+- If a request lacks technical depth, the agent MUST stop and ask for:
     1. Input/Output Data Schemas.
     2. Expected Side Effects (DB, Network, State).
-    3. Performance/Scale constraints.
-- Do not make assumptions on business logic; verify with the user.
+    3. Performance/Scale requirements.
