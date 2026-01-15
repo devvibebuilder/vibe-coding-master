@@ -1,20 +1,49 @@
-# REGLAMENTO CONSTITUCIONAL DEL REPOSITORIO (v1.0.0)
+# .cursorrules - Senior Staff Engineer & System Architect Edition (v3.0.0)
 
-## 1. PRINCIPIOS ARQUITECTÓNICOS FUNDAMENTALES
-- **Clean Architecture Obligatoria**: Separación estricta de responsabilidades entre capas.
-- **SOLID Compliance**: Cada clase y función debe adherirse a los principios de responsabilidad única, abierto/cerrado, sustitución de Liskov, segregación de interfaces e inversión de dependencias.
-- **D.R.Y. (Don't Repeat Yourself)**: Evitar la redundancia para minimizar los puntos de falla.
+## 1. CORE ARCHITECTURAL PRINCIPLES
+- **Architecture Model:** Strict Clean Architecture / Hexagonal. Separation of concerns between Domain, Use Cases, and Infrastructure.
+- **Dependency Direction:** Dependencies must only point inwards. Infrastructure must depend on Domain, never the reverse.
+- **SOLID Compliance:** Every code block must adhere to Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.
+- **Modularity:** High cohesion and low coupling. Prefer composition over inheritance.
 
-## 2. PROTOCOLO DE INTERACCIÓN DE IA
-- **Pausar y Preguntar**: Ante cualquier ambigüedad en la definición de requerimientos de negocio o conflictos arquitectónicos, el agente DEBE detenerse y solicitar aclaración.
-- **Contexto Senior únicamente**: Todas las sugerencias deben reflejar un nivel de Staff Engineer / Architect. No se acepta código "Junior" o patrones obsoletos.
+## 2. SYSTEMATIC EXECUTION PROTOCOL (INTERNAL CHAIN OF THOUGHT)
+Before outputting any code, the agent must perform and document:
+1. **Context Mapping:** Analyze the workspace. Identify affected files, shared types, and downstream impacts.
+2. **Root Cause Analysis (RCA):** If debugging, identify why the error exists before proposing a fix.
+3. **Trade-off Analysis:** Explicitly state why a specific pattern was chosen over alternatives (e.g., Performance vs. Readability).
+4. **Adversarial Review:** Search for race conditions, edge cases (null/undefined/empty), and O(n^2) complexity.
 
-## 3. SEGURIDAD Y CUMPLIMIENTO (COMPLIANCE)
-- **Validación Estática Proactiva**: Cada sugerencia de código debe incluir implícitamente una revisión de vulnerabilidades (OWASP Top 10).
-- **Zero Secrets Policy**: Prohibido hardcodear credenciales, tokens o IPs privadas.
-- **Audit Logging**: Los cambios críticos deben documentarse con la justificación arquitectónica correspondiente.
+## 3. TECHNICAL CONSTRAINTS & TYPE PROHIBITIONS
+- **Type Integrity:** Absolute prohibition of `any`, `as unknown`, or `!`. Use Discriminated Unions and Type Guards.
+- **Boundary Validation:** All external data (API, User Input, Env) must be validated via Zod/TypeBox at the edge.
+- **Error Handling:** Use the Result/Either pattern for domain errors. Avoid try/catch for flow control.
+- **Function Metrics:** Maximum 20 lines per function. Maximum 3 arguments per function. Use objects for complex parameters.
+- **Naming:** Booleans must have prefixes (is, has, should, can). Functions must start with a verb.
 
-## 4. ESTÁNDARES DE DESARROLLO
-- **Tipado Fuerte**: Preferencia por interfaces y tipos explícitos para eliminar la ambigüedad en tiempo de ejecución.
-- **Testing First**: La lógica de negocio (`/logic`) debe ser testeable al 100% sin dependencias externas.
-- **Documentación Viva**: El código debe ser auto-explicativo, complementado con JSDoc/TSDoc detallado donde la complejidad lo requiera.
+## 4. DESIGN SYSTEM & UI GOVERNANCE
+- **Logic Isolation:** 100% separation between business logic (Hooks/Services) and UI (Pure Components).
+- **Aesthetic Consistency:** Adhere to established design tokens (Tailwind/Theme). No hardcoded hex codes or spacing.
+- **State Ownership:** Local state by default. Global state must be serializable and managed via immutable store patterns.
+
+## 5. INFRASTRUCTURE & SECURITY (GOD MODE)
+- **Security First:** Sanitize all inputs. Prevent XSS, SQLi, and CSRF at the architectural level.
+- **Zero Secrets:** Hardcoded credentials trigger an immediate failure. Use encrypted environment variables.
+- **Observability:** Include structured logging and telemetry hooks in all critical service paths.
+- **Performance:** O(n) or better. Implement debouncing, throttling, and virtualization for high-frequency operations.
+
+## 6. WORKSPACE & CONTEXT MANAGEMENT
+- **Token Efficiency:** Keep responses concise. Do not rewrite existing code unless refactoring is requested.
+- **File Management:** Files exceeding 250 lines must be split into sub-modules.
+- **Context Pinning:** Always respect the types defined in `@types/` or `src/domain/`. Do not hallucinate new interfaces if existing ones apply.
+
+## 7. DOCUMENTATION & VERSION CONTROL
+- **TSDoc/JSDoc:** Mandatory for all exported members. Must include `@param`, `@returns`, and `@throws`.
+- **Git Flow:** All code suggestions must include a summary in Conventional Commits format (feat, fix, refactor, chore).
+- **Tech Debt Tracking:** Use `// TODO: TECH DEBT [ID]` for temporary hacks, including a brief explanation of the "ideal" fix.
+
+## 8. AMBIGUITY & SYSTÈME-D
+- If a request is vague, the agent MUST stop and ask for:
+    1. Input/Output Data Schemas.
+    2. Expected Side Effects (DB, Network, State).
+    3. Performance/Scale constraints.
+- Do not make assumptions on business logic; verify with the user.
