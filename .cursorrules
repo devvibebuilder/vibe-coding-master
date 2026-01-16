@@ -1,50 +1,55 @@
-# .cursorrules - Master Repository Constitution (v3.2.0)
+# .cursorrules - Reglamento Constitucional del Repositorio (v3.3.0)
 
-## 1. DIRECTORY GOVERNANCE & PROJECT DNA
-- **Strict Layer Isolation:**
-    - `/logic`: Core business logic and domain entities only. Pure functions, no external dependencies.
-    - `/interfaces`: API definitions, DTOs, and abstract contracts. The "What", not the "How".
-    - `/adapters`: Implementation details (DB, External APIs, Frameworks). Implementation of interfaces.
-    - `/specs`: Technical specifications, documentation, and architectural decisions (ADRs).
-    - `/tests`: Unit, integration, and E2E testing suites mirroring the source structure.
-    - `/audit`: Security logs, performance reports, and compliance documentation.
+## 1. GOBERNANZA DE DIRECTORIOS Y ADN DEL PROYECTO
+- **Aislamiento Estricto de Capas:**
+    - `/logic`: Solo lógica de negocio central y entidades de dominio. Funciones puras, sin dependencias externas.
+    - `/interfaces`: Definiciones de API, DTOs y contratos abstractos. El "Qué", no el "Cómo".
+    - `/adapters`: Detalles de implementación (Base de Datos, APIs externas, Frameworks). Implementación de las interfaces.
+    - `/specs`: Especificaciones técnicas, documentación y decisiones arquitectónicas (ADRs).
+    - `/tests`: Suites de pruebas unitarias, de integración y E2E que reflejan la estructura de la fuente.
+    - `/audit`: Registros de seguridad, informes de rendimiento y documentación de cumplimiento.
 
-## 2. SYSTEMATIC EXECUTION PROTOCOL (INTERNAL CHAIN OF THOUGHT)
-Before outputting any code, the agent must perform and document:
-1. **Context Mapping:** Analyze `/interfaces` and `/logic` before proposing changes in `/adapters`.
-2. **Root Cause Analysis (RCA):** For debugging, trace the error across layers before fixing.
-3. **Trade-off Analysis:** Explicitly state architectural decisions (e.g., "Placed in Adapters to keep Logic pure").
-4. **Adversarial Review:** Identify potential race conditions, edge cases, and O(n^2) complexity.
+## 2. PROTOCOLO DE EJECUCIÓN SISTEMÁTICA (CADENA DE PENSAMIENTO)
+Antes de generar cualquier código, el agente debe realizar y documentar:
+1. **Mapeo de Contexto:** Analizar `/interfaces` y `/logic` antes de proponer cambios en `/adapters`.
+2. **Análisis de Causa Raíz (RCA):** Para depuración, rastrear el error a través de las capas antes de corregir.
+3. **Análisis de Trade-off:** Declarar explícitamente decisiones arquitectónicas (ej. "Ubicado en Adapters para mantener la Lógica pura").
+4. **Revisión Adversarial:** Identificar condiciones de carrera, casos de borde y complejidad computacional ineficiente.
 
-## 3. TECHNICAL CONSTRAINTS & TYPE PROHIBITIONS
-- **Type Integrity:** Zero tolerance for `any`, `as unknown`, or `!`. Use Discriminated Unions and Type Guards.
-- **Boundary Validation:** Use Zod/TypeBox at the `/interfaces` level to validate all incoming data.
-- **Error Handling:** Use Result/Either patterns for domain errors. Avoid try/catch for flow control.
-- **Complexity Limits:** Functions < 20 lines. Maximum 3 arguments per function.
-- **Naming Convention:** Booleans must use prefixes (is, has, should, can). Functions must start with a verb.
+## 3. REGLAS ESPECÍFICAS PARA /INTERFACES
+1. **Esquemas Obligatorios:** Toda interfaz definida en `/interfaces` debe estar acompañada de un esquema de validación **Zod**.
+2. **Tipado Derivado:** Queda prohibido definir tipos manualmente si pueden derivarse del esquema mediante `z.infer`.
+3. **Validación en la Frontera:** El agente DEBE utilizar estos esquemas en los `/adapters` para validar cualquier dato proveniente de fuentes externas antes de enviarlos a `/logic`.
+4. **Nomenclatura:** Los archivos deben seguir estrictamente el patrón `[nombre].schema.ts` o `[nombre].types.ts`.
 
-## 4. SECURITY & OBSERVABILITY (GOD MODE)
-- **Security First:** Sanitize all inputs at the Adapter level. Prevent XSS, SQLi, and CSRF.
-- **Zero Secrets:** Hardcoded credentials trigger immediate failure. Use encrypted env vars.
-- **Audit Logging:** Critical operations must be logged and documented in the `/audit` directory.
-- **Performance:** Ensure O(n) or better. Implement debouncing/throttling for high-frequency operations.
+## 4. RESTRICCIONES TÉCNICAS Y PROHIBICIONES
+- **Integridad de Tipos:** Tolerancia cero para `any`, `as unknown` o `!`. Utilizar Uniones Discriminadas y Type Guards.
+- **Validación de Límites:** Uso de Zod obligatorio a nivel de interfaces para validar todos los datos entrantes.
+- **Manejo de Errores:** Utilizar patrones Result/Either para errores de dominio. Evitar try/catch para el control de flujo.
+- **Límites de Complejidad:** Funciones < 20 líneas. Máximo 3 argumentos por función.
+- **Convención de Nombres:** Booleanos deben usar prefijos (is, has, should, can). Funciones deben iniciar con un verbo.
 
-## 5. WORKSPACE & CONTEXT MANAGEMENT
-- **Token Efficiency:** Be concise. Do not rewrite existing files unless a refactor is requested.
-- **Modularization:** Files > 250 lines must be decomposed into sub-modules within their layer.
-- **Context Pinning:** Always prioritize types in `/interfaces` over local definitions.
+## 5. SEGURIDAD Y OBSERVABILIDAD
+- **Seguridad Primero:** Sanitizar todas las entradas en el nivel de Adapter. Prevenir XSS, SQLi y CSRF.
+- **Secretos Cero:** Las credenciales hardcoded disparan un fallo inmediato. Usar variables de entorno encriptadas.
+- **Registro de Auditoría:** Las operaciones críticas deben registrarse y documentarse en el directorio `/audit`.
+- **Rendimiento:** Garantizar O(n) o mejor. Implementar debouncing/throttling para operaciones de alta frecuencia.
 
-## 6. DOCUMENTATION & VERSION CONTROL
-- **Standards:** TSDoc/JSDoc required for all exported members in `/logic` and `/interfaces`.
-- **Git Flow:** All suggestions must follow Conventional Commits (feat, fix, refactor, chore, docs).
-- **Tech Debt:** Mark temporary solutions with `// TODO: TECH DEBT [ID]` and document the refactor path.
+## 6. GESTIÓN DEL ESPACIO DE TRABAJO Y CONTEXTO
+- **Eficiencia de Tokens:** Ser conciso. No reescribir archivos existentes a menos que se solicite un refactor.
+- **Modularización:** Archivos > 250 líneas deben descomponerse en sub-módulos dentro de su capa.
+- **Prioridad de Contexto:** Siempre priorizar tipos en `/interfaces` sobre definiciones locales.
 
-## 7. AMBIGUITY RESOLUTION PROTOCOL
-- If a request lacks technical depth, the agent MUST stop and ask for:
-    1. Input/Output Data Schemas.
-    2. Expected Side Effects (DB, Network, State).
-    3. Performance/Scale requirements.
-- **Active Specification Leading:** Si el usuario intenta codificar sin haber completado `specs/plantilla_vision.md`, el agente DEBE:
+## 7. PROTOCOLO DE RESOLUCIÓN DE AMBIGÜEDAD
+- Si una solicitud carece de profundidad técnica, el agente DEBE detenerse y solicitar:
+    1. Esquemas de datos de entrada/salida.
+    2. Efectos secundarios esperados (DB, Red, Estado).
+    3. Requisitos de rendimiento o escala.
+- **Liderazgo Activo de Especificación:** Si el usuario intenta codificar sin haber completado `specs/plantilla_vision.md`, el agente DEBE:
     1. Notificar que el "Business Case" no está definido.
     2. Actuar como Consultor: Hacer preguntas socráticas para completar las secciones I, II y III de la plantilla.
-    3. No proceder a `/logic` hasta que la sección "II. TRADUCCIÓN A ESPECIFICACIÓN TÉCNICA" tenga entidades de negocio claras.
+    3. Bloquear el progreso a `/logic` hasta que la sección "II. TRADUCCIÓN A ESPECIFICACIÓN TÉCNICA" sea validada.
+
+## 8. DOCUMENTACIÓN Y CONTROL DE VERSIONES
+- **Estándares:** TSDoc/JSDoc requerido para todos los miembros exportados en `/logic` e `/interfaces`.
+- **Git Flow:** Todas las sugerencias deben seguir Conventional Commits (feat, fix, refactor, chore, docs).
