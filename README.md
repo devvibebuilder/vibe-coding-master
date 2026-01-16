@@ -1,77 +1,78 @@
-# Vibe Coding Master: Protocolo de Gobernanza para el Desarrollo Agéntico
+# Vibe Coding Master: Protocolo de Gobernanza para el Desarrollo Agentico
 
 ### Abstract
-**Vibe Coding Master** is a high-level operational framework designed to streamline the transition from manual coding to agentic orchestration. This repository serves as a **technical governance blueprint**, optimizing context injection for Large Language Models (LLMs) and AI agents. By enforcing **Clean Architecture** and **Dependency Inversion** principles, it ensures that AI-generated code remains scalable, secure, and aligned with enterprise-grade standards.
+Vibe Coding Master is a high-level operational framework designed to streamline the transition from manual coding to agentic orchestration. This repository serves as a technical governance blueprint, optimizing context injection for Large Language Models (LLMs) and AI agents. By enforcing Clean Architecture and Dependency Inversion principles, it ensures that AI-generated code remains scalable, secure, and aligned with enterprise-grade standards.
 
 ---
 
 ### Resumen Ejecutivo
-Este repositorio constituye un **Framework de Gobernanza Técnica** diseñado para la transición del desarrollo manual a la orquestación asistida por agentes. Su propósito es estandarizar la inyección de contexto en modelos de lenguaje (LLMs), asegurando que la generación de código sea el resultado de un diseño arquitectónico predefinido y no de una inferencia probabilística aislada.
+Este repositorio constituye un Framework de Gobernanza Tecnica diseñado para la transicion del desarrollo manual a la orquestacion asistida por agentes. Su proposito es estandarizar la inyeccion de contexto en modelos de lenguaje (LLMs), asegurando que la generacion de codigo sea el resultado de un diseño arquitectonico predefinido y no de una inferencia probabilistica aislada.
 
 ### Quick Start para Dueños de Producto
-Este repositorio debe ser utilizado como el **molde operativo** (blueprint) para el inicio de cualquier nuevo Micro-SaaS o producto digital. 
+Este repositorio debe ser utilizado como el molde operativo (blueprint) para el inicio de cualquier nuevo Micro-SaaS o producto digital bajo un enfoque poliglotas.
 
-1. **Duplicación del Activo**: Clone este repositorio como base para su nuevo proyecto.
-2. **Definición de Especificaciones**: Utilice la carpeta `/specs` para detallar los requerimientos de negocio.
-3. **Despliegue de Lógica**: Instruya a la IA para que desarrolle el núcleo del sistema exclusivamente en `/logic`, asegurando la independencia del código.
-4. **Gobernanza**: El archivo `.cursorrules` actuará como el fiscal técnico de cada línea de código sugerida.
+1. Duplicacion del Activo: Clone este repositorio como base para su nuevo proyecto.
+2. Definicion de Especificaciones: Utilice la carpeta /specs para detallar los requerimientos de negocio.
+3. Seleccion de Stack: Defina el lenguaje en ARCHITECTURE.md para que la IA aplique las reglas correspondientes.
+4. Gobernanza: El archivo .cursorrules actuara como el fiscal tecnico de cada linea de codigo sugerida.
 
 ### Arquitectura de Directorios
-La estructura física del repositorio garantiza la integridad sistémica bajo principios de **Clean Architecture**:
+La estructura fisica del repositorio garantiza la integridad sistemica bajo principios de Clean Architecture:
 
-* **`.cursorrules`**: Capa de gobernanza normativa. Reglamento Constitucional que rige el comportamiento y límites de la IA.
-* **`/logic`**: El núcleo (Core). Contiene la lógica de negocio pura y reglas de dominio, aislada de dependencias externas.
-* **`/interfaces`**: Contratos y esquemas. Define los DTOs y tipos globales que aseguran la comunicación entre módulos.
-* **`/adapters`**: Capa de implementación. Gestiona la conexión con servicios externos (DB, APIs) bajo Inversión de Dependencias.
-* **`/audit`**: Trazabilidad y control. Registros de calidad, logs de seguridad y persistencia de contexto.
-* **`/specs`**: Fuente de verdad. Requerimientos técnicos y funcionales que sirven de base para la inferencia.
-* **`/tests`**: Infraestructura de validación. Garantiza que la lógica sea testeable al 100% y libre de efectos secundarios.
+* .cursorrules: Capa de gobernanza normativa. Reglamento Constitucional que rige el comportamiento y limites de la IA.
+* ARCHITECTURE.md: Manifiesto Poliglota. Define como aplicar la arquitectura segun el stack tecnologico elegido (TS, Python, Go, Rust, etc).
+* /logic: El nucleo (Core). Contiene la logica de negocio pura y reglas de dominio, aislada de dependencias externas.
+* /interfaces: Contratos y esquemas de validacion. Define los DTOs y esquemas (Zod, Pydantic, etc) que actuan como aduana de datos.
+* /adapters: Capa de implementacion. Gestiona la conexion con servicios externos (DB, APIs) bajo Inversion de Dependencias.
+* /audit: Trazabilidad y control. Registros de decisiones arquitectonicas (ADRs), logs de seguridad y persistencia de contexto.
+* /specs: Fuente de verdad. Requerimientos tecnicos y funcionales que sirven de base para la inferencia dirigida.
+* /tests: Infraestructura de validacion. Garantiza que la logica sea testeable y libre de efectos secundarios.
 
 ### Protocolo de Inferencia Dirigida (PID)
-A diferencia del desarrollo tradicional, este framework utiliza un **Protocolo de Inferencia Dirigida**. El agente de IA tiene prohibido "crear" sin antes "consultar":
-1. **Anclaje de Verdad**: El agente lee obligatoriamente `/specs` antes de proponer cualquier línea de código.
-2. **Contrato de Interfaz**: Ninguna función en `/adapters` se implementa sin una definición previa y validada en `/interfaces`.
-3. **Aislamiento de Dominio**: El código en `/logic` es matemáticamente puro; es agnóstico a la infraestructura (DB, Frameworks, UI).
+A diferencia del desarrollo tradicional, este framework utiliza un Protocolo de Inferencia Dirigida. El agente de IA tiene prohibido crear sin antes consultar:
 
-### Ciclo de Vida del Desarrollo Agéntico (ADLC)
+1. Anclaje de Verdad: El agente lee obligatoriamente /specs antes de proponer cualquier linea de codigo.
+2. Contrato de Interfaz: Ninguna funcion se implementa sin una definicion previa y validada mediante esquemas en /interfaces.
+3. Aislamiento de Dominio: El codigo en /logic es puro; es agnostico a la infraestructura (DB, Frameworks, UI).
+
+
+
+### Ciclo de Vida del Desarrollo Agentico (ADLC)
 Para maximizar la eficiencia de la IA, siga este flujo de trabajo:
-1. **DRAFT** (`/specs`): Defina el requerimiento funcional.
-2. **CONTRACT** (`/interfaces`): Establezca los tipos y contratos de entrada/salida.
-3. **CORE** (`/logic`): Desarrolle la lógica de negocio pura.
-4. **IMPLEMENT** (`/adapters`): Conecte la lógica con el mundo exterior (infraestructura).
-5. **VERIFY** (`/tests` & `/audit`): Valide la integridad y registre el resultado.
 
-### Valor Estratégico y ROI
-* **Reducción del Time-to-Market**: Colapso de los ciclos de prototipado mediante orquestación guiada.
-* **Soberanía Técnica**: Arquitectura modular que facilita la migración de proveedores o stacks.
-* **Mitigación de Deuda**: Restricciones de diseño estrictas que impiden la degradación del código con el tiempo.
+1. DRAFT (/specs): Defina el requerimiento funcional y de negocio.
+2. CONTRACT (/interfaces): Establezca los esquemas de validacion y contratos de datos.
+3. CORE (/logic): Desarrolle la logica de negocio pura alineada al contrato.
+4. IMPLEMENT (/adapters): Conecte la logica con la infraestructura externa.
+5. VERIFY (/tests & /audit): Valide la integridad tecnica y documente la decision en un ADR.
+
+### Valor Estrategico y ROI
+* Reduccion del Time-to-Market: Colapso de los ciclos de prototipado mediante orquestacion guiada.
+* Soberania Tecnica: Arquitectura modular que facilita la migracion de proveedores o stacks.
+* Mitigacion de Deuda: Restricciones de diseño estrictas que impiden la degradacion del codigo con el tiempo.
 
 ---
 
-## Instalación Automatizada vía IA
+## Instalacion Automatizada via IA
 
-Si utiliza un IDE agéntico (Cursor, Windsurf), ejecute este prompt en el chat:
+Si utiliza un IDE agentico (Cursor, Windsurf), ejecute este prompt en el chat:
 
-> "Actúa como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios. Una vez hecho, analiza el archivo .cursorrules para alinearte con mi Reglamento Constitucional y el README.md para entender el flujo de trabajo PID."
-
-## Validación de Gobernanza y Defensa Proactiva
-Este repositorio incluye un mecanismo de **Defensa Proactiva**. El sistema activará el protocolo de **Pausar y Preguntar** si se intenta violar la arquitectura.
+> Actua como un Ingeniero de DevOps. Genera los comandos de terminal necesarios para clonar el repositorio 'https://github.com/devvibebuilder/vibe-coding-master.git' en una nueva carpeta, accede a ella y lista la estructura de directorios. Una vez hecho, analiza ARCHITECTURE.md y .cursorrules para alinearte con mi Reglamento Constitucional y el README.md para entender el flujo de trabajo PID.
 
 ## Protocolo de Arranque (Initial Handshake)
 
-Para iniciar un proyecto, copie y pegue el siguiente prompt en el chat de su IDE. Este comando activa el **Modo Consultor** de la IA:
+Para iniciar un proyecto, copie y pegue el siguiente prompt en el chat de su IDE para activar el Modo Consultor:
 
-> "Actúa como mi Staff Software Engineer & Product Strategist. He inicializado un proyecto bajo el framework 'Vibe Coding Master'. 
+> Actua como mi Staff Software Engineer & Product Strategist. He inicializado un proyecto bajo el framework 'Vibe Coding Master'. 
 > 
-> **Tu misión:**
-> 1. Analiza el `.cursorrules` y este `README.md` para alinearte con mi Reglamento Constitucional.
-> 2. **Fase de Diagnóstico:** Lee `specs/plantilla_vision.md`. Si está incompleto, inicia una entrevista socrática para definir la Ineficiencia Operativa, las Entidades de Negocio para `/logic` y los Adapters necesarios.
-> 3. **Restricción:** No escribas código en `/logic` o `/adapters` hasta que la fase de especificación en `/specs` sea validada por mí.
+> Tu mision:
+> 1. Analiza .cursorrules, ARCHITECTURE.md y este README.md para entender tu marco de actuacion.
+> 2. Definicion de Stack: Preguntame que lenguaje y motor de validacion de esquemas utilizaremos para cumplir con la Seccion 3 de la Constitucion.
+> 3. Fase de Diagnostico: Lee specs/plantilla_vision.md. Si esta incompleto, inicia una entrevista socratica para definir la Ineficiencia Operativa, Entidades de Negocio y Adapters.
+> 4. Restriccion: No escribas codigo hasta que la fase de especificacion en /specs sea validada por mi.
 > 
-> ¿Estás listo para comenzar el diagnóstico?"
-
-**Ejercicio de prueba:** Solicite crear un script de acceso a base de datos mezclado con lógica de UI en la raíz del proyecto. El agente **debe** denegar la operación citando el incumplimiento del Reglamento Constitucional y la falta de separación entre `/adapters` y la vista.
+> ¿Estas listo para comenzar el diagnostico?
 
 ---
-**Director Técnico: Gustavo Reyes**
-*Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa*
+**Director Tecnico: Gustavo Reyes**
+Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa
