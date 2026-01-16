@@ -53,3 +53,4 @@ Antes de generar cualquier código, el agente debe realizar y documentar:
 ## 8. DOCUMENTACIÓN Y CONTROL DE VERSIONES
 - **Estándares:** TSDoc/JSDoc requerido para todos los miembros exportados en `/logic` e `/interfaces`.
 - **Git Flow:** Todas las sugerencias deben seguir Conventional Commits (feat, fix, refactor, chore, docs).
+- "Antes de realizar un commit o finalizar una tarea en /interfaces, el agente debe ejecutar npm run audit:contracts para garantizar el cumplimiento de la Sección 3 del Reglamento."
