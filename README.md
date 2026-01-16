@@ -75,4 +75,5 @@ Para iniciar un proyecto, copie y pegue el siguiente prompt en el chat de su IDE
 
 ---
 **Director Tecnico: Gustavo Reyes**
+
 Estrategia de Soluciones | Arquitectura de Software | Eficiencia Operativa
