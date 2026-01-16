@@ -1,56 +1,43 @@
-# .cursorrules - Reglamento Constitucional del Repositorio (v3.3.0)
+# .cursorrules - Reglamento Constitucional del Repositorio (v4.0.0)
 
 ## 1. GOBERNANZA DE DIRECTORIOS Y ADN DEL PROYECTO
 - **Aislamiento Estricto de Capas:**
-    - `/logic`: Solo lógica de negocio central y entidades de dominio. Funciones puras, sin dependencias externas.
-    - `/interfaces`: Definiciones de API, DTOs y contratos abstractos. El "Qué", no el "Cómo".
-    - `/adapters`: Detalles de implementación (Base de Datos, APIs externas, Frameworks). Implementación de las interfaces.
-    - `/specs`: Especificaciones técnicas, documentación y decisiones arquitectónicas (ADRs).
-    - `/tests`: Suites de pruebas unitarias, de integración y E2E que reflejan la estructura de la fuente.
-    - `/audit`: Registros de seguridad, informes de rendimiento y documentación de cumplimiento.
+    - `/logic`: Solo lógica de negocio central y entidades de dominio. Funciones puras, agnósticas al framework.
+    - `/interfaces`: Contratos, esquemas de validación y definiciones de datos. El "Qué", no el "Cómo".
+    - `/adapters`: Implementaciones de infraestructura (Bases de datos, Clientes API, UI, Frameworks).
+    - `/specs`: Documentación técnica, Business Case y Decisiones Arquitectónicas (ADRs).
+    - `/tests`: Estructura de pruebas espejo a la fuente (Unitarias en Logic, Integración en Adapters).
+    - `/audit`: Logs de seguridad, trazabilidad de decisiones y cumplimiento técnico.
 
-## 2. PROTOCOLO DE EJECUCIÓN SISTEMÁTICA (CADENA DE PENSAMIENTO)
-Antes de generar cualquier código, el agente debe realizar y documentar:
-1. **Mapeo de Contexto:** Analizar `/interfaces` y `/logic` antes de proponer cambios en `/adapters`.
-2. **Análisis de Causa Raíz (RCA):** Para depuración, rastrear el error a través de las capas antes de corregir.
-3. **Análisis de Trade-off:** Declarar explícitamente decisiones arquitectónicas (ej. "Ubicado en Adapters para mantener la Lógica pura").
-4. **Revisión Adversarial:** Identificar condiciones de carrera, casos de borde y complejidad computacional ineficiente.
+## 2. PROTOCOLO DE EJECUCIÓN SISTEMÁTICA
+Antes de generar código, el agente debe documentar su proceso de pensamiento:
+1. **Mapeo de Contexto:** Verificar contratos en `/interfaces` antes de implementar en `/adapters`.
+2. **Análisis de Trade-off:** Justificar la elección de patrones según el lenguaje (ej. Protocolos en Swift, Interfaces en Go, Types en TS).
+3. **Validación Adversarial:** Evaluar fallos potenciales en la frontera de datos.
 
-## 3. REGLAS ESPECÍFICAS PARA /INTERFACES
-1. **Esquemas Obligatorios:** Toda interfaz definida en `/interfaces` debe estar acompañada de un esquema de validación **Zod**.
-2. **Tipado Derivado:** Queda prohibido definir tipos manualmente si pueden derivarse del esquema mediante `z.infer`.
-3. **Validación en la Frontera:** El agente DEBE utilizar estos esquemas en los `/adapters` para validar cualquier dato proveniente de fuentes externas antes de enviarlos a `/logic`.
-4. **Nomenclatura:** Los archivos deben seguir estrictamente el patrón `[nombre].schema.ts` o `[nombre].types.ts`.
+## 3. REGLAS ESPECÍFICAS PARA /INTERFACES (POLÍGLOTA)
+1. **Esquemas de Validación Obligatorios:** Toda interfaz debe usar un motor de validación de esquemas nativo o estándar del stack (ej. Zod para TS, Pydantic para Python, Serde para Rust, Marshmallow para Flask).
+2. **Fuente Única de Verdad:** Los tipos de datos o estructuras deben derivarse de los esquemas de validación para evitar discrepancias.
+3. **Validación en la Frontera:** El agente DEBE validar los datos en los `/adapters` usando los contratos de `/interfaces` antes de permitir que la información llegue a la capa de `/logic`.
+4. **Nomenclatura Sugerida:** `[entidad].schema.[ext]` o `[entidad].contract.[ext]`.
 
-## 4. RESTRICCIONES TÉCNICAS Y PROHIBICIONES
-- **Integridad de Tipos:** Tolerancia cero para `any`, `as unknown` o `!`. Utilizar Uniones Discriminadas y Type Guards.
-- **Validación de Límites:** Uso de Zod obligatorio a nivel de interfaces para validar todos los datos entrantes.
-- **Manejo de Errores:** Utilizar patrones Result/Either para errores de dominio. Evitar try/catch para el control de flujo.
-- **Límites de Complejidad:** Funciones < 20 líneas. Máximo 3 argumentos por función.
-- **Convención de Nombres:** Booleanos deben usar prefijos (is, has, should, can). Funciones deben iniciar con un verbo.
+## 4. RESTRICCIONES TÉCNICAS UNIVERSALES
+- **Tipado Estricto:** Prohibido el uso de tipos genéricos no descriptivos (ej. `any`, `Object`, `void*`).
+- **Manejo de Errores:** Preferir patrones de retorno de error (Result/Either/Errors) sobre excepciones para el flujo lógico.
+- **Límites de Complejidad:** Funciones < 20 líneas. Máximo 3 argumentos por función para asegurar la modularidad.
+- **Nomenclatura:** Funciones iniciadas con verbos. Booleans con prefijos indicativos (is, has, can).
 
-## 5. SEGURIDAD Y OBSERVABILIDAD
-- **Seguridad Primero:** Sanitizar todas las entradas en el nivel de Adapter. Prevenir XSS, SQLi y CSRF.
-- **Secretos Cero:** Las credenciales hardcoded disparan un fallo inmediato. Usar variables de entorno encriptadas.
-- **Registro de Auditoría:** Las operaciones críticas deben registrarse y documentarse en el directorio `/audit`.
-- **Rendimiento:** Garantizar O(n) o mejor. Implementar debouncing/throttling para operaciones de alta frecuencia.
+## 5. SEGURIDAD Y GOBERNANZA DE DATOS
+- **Sanitización Obligatoria:** Limpiar entradas en la capa de Adapter. Prevenir inyecciones según el stack tecnológico.
+- **Secretos Cero:** Prohibido el hardcoding de llaves. Uso mandatorio de variables de entorno o gestores de secretos.
+- **Trazabilidad:** Operaciones críticas deben generar un registro en `/audit`.
 
-## 6. GESTIÓN DEL ESPACIO DE TRABAJO Y CONTEXTO
-- **Eficiencia de Tokens:** Ser conciso. No reescribir archivos existentes a menos que se solicite un refactor.
-- **Modularización:** Archivos > 250 líneas deben descomponerse en sub-módulos dentro de su capa.
-- **Prioridad de Contexto:** Siempre priorizar tipos en `/interfaces` sobre definiciones locales.
+## 6. LIDERAZGO ACTIVO Y AMBIGÜEDAD
+- Si falta profundidad técnica o el usuario intenta codificar sin definir el negocio:
+    1. **Bloqueo Preventivo:** No avanzar a `/logic` sin la aprobación de `specs/plantilla_vision.md`.
+    2. **Entrevista Socrática:** Preguntar por Entidades, Adapters y Flujos de Datos.
 
-## 7. PROTOCOLO DE RESOLUCIÓN DE AMBIGÜEDAD
-- Si una solicitud carece de profundidad técnica, el agente DEBE detenerse y solicitar:
-    1. Esquemas de datos de entrada/salida.
-    2. Efectos secundarios esperados (DB, Red, Estado).
-    3. Requisitos de rendimiento o escala.
-- **Liderazgo Activo de Especificación:** Si el usuario intenta codificar sin haber completado `specs/plantilla_vision.md`, el agente DEBE:
-    1. Notificar que el "Business Case" no está definido.
-    2. Actuar como Consultor: Hacer preguntas socráticas para completar las secciones I, II y III de la plantilla.
-    3. Bloquear el progreso a `/logic` hasta que la sección "II. TRADUCCIÓN A ESPECIFICACIÓN TÉCNICA" sea validada.
-
-## 8. DOCUMENTACIÓN Y CONTROL DE VERSIONES
-- **Estándares:** TSDoc/JSDoc requerido para todos los miembros exportados en `/logic` e `/interfaces`.
-- **Git Flow:** Todas las sugerencias deben seguir Conventional Commits (feat, fix, refactor, chore, docs).
-- "Antes de realizar un commit o finalizar una tarea en /interfaces, el agente debe ejecutar npm run audit:contracts para garantizar el cumplimiento de la Sección 3 del Reglamento."
+## 7. DOCUMENTACIÓN Y VERSIONADO
+- **Estándares:** Comentarios descriptivos según el lenguaje (Docstrings, JSDoc, Rustdoc).
+- **Git Flow:** Uso de Conventional Commits (feat, fix, refactor, chore).
+- **Auditoría de Contratos:** Antes de finalizar, el agente debe verificar que la implementación en Adapters sea fiel al contrato en Interfaces.
